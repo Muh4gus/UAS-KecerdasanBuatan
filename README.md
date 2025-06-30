@@ -123,3 +123,76 @@ Setelah melalui tahapan ini, dataset menjadi:
     •	Bebas dari nilai tidak logis pada fitur utama (sudah diimputasi dengan median).
     •	Seluruh fitur numerik sudah ternormalisasi.
     •	Sudah terpisah menjadi data latih dan data uji dengan distribusi target yang proporsional.
+Dataset yang telah dipersiapkan dengan langkah ini memastikan kualitas data yang optimal untuk proses modeling dan evaluasi model machine learning.
+## Modeling
+Pada tahap ini, dilakukan pemodelan data menggunakan algoritma Random Forest untuk memprediksi risiko diabetes berdasarkan data kesehatan pasien. Model dilatih menggunakan data latih yang telah melalui proses pra-pemrosesan, kemudian digunakan untuk melakukan prediksi pada data uji. Evaluasi performa model dilakukan menggunakan metrik akurasi, precision, recall, dan F1-score. Selain itu, dilakukan analisis feature importance untuk mengidentifikasi fitur-fitur yang paling berpengaruh dalam menentukan prediksi diabetes pada dataset ini.
+## Random forest
+Random Forest adalah algoritma ensemble yang membangun banyak decision tree untuk menghasilkan prediksi yang lebih akurat dan stabil. Model ini bekerja dengan menggabungkan hasil dari beberapa pohon keputusan yang dilatih secara acak, sehingga mampu mengurangi risiko overfitting dan dapat menangkap interaksi kompleks antar fitur.
+
+Parameter :
+    
+    •	random_state=42 untuk memastikan hasil yang konsisten pada setiap eksekusi model.
+**Hasil evaluasi :**
+
+Berdasarkan data uji, performa model Random Forest adalah sebagai berikut:
+  
+    •	Akurasi: 0.74
+    •	Precision:
+        o	Kelas 0 (Tidak Diabetes): 0.80
+        o	Kelas 1 (Diabetes): 0.63
+    •	Recall:
+        o	Kelas 0: 0.79
+        o	Kelas 1: 0.65
+
+    •	F1 Score:
+        o	Kelas 0: 0.80
+        o	Kelas 1: 0.64
+Macro avg F1-score: 0.72
+
+Weighted avg F1-score: 0.74
+
+Confusion Matrix:
+    
+    •	True Negatives (0→0): 78
+    •	False Positives (0→1): 21
+    •	False Negatives (1→0): 19
+    •	True Positives (1→1): 36
+Kelebihan:
+
+    •	Mampu menangani data dengan banyak fitur dan pola non-linear.
+    •	Tahan terhadap overfitting karena menggunakan banyak pohon keputusan.
+    •	Dapat mengukur tingkat kepentingan setiap fitur terhadap hasil prediksi (feature importance).
+Kekurangan:
+
+    •	Waktu pelatihan dan prediksi lebih lama dibanding model sederhana seperti Logistic Regression.
+    •	Hasil prediksi lebih sulit diinterpretasikan secara langsung (kurang transparan dibanding model linear).
+Cara Kerja:
+
+    •	Model membangun banyak decision tree dari subset data dan fitur yang dipilih secara acak.
+    •	Setiap pohon menghasilkan prediksi, dan hasil akhir ditentukan berdasarkan voting mayoritas dari seluruh pohon.
+    •	Model juga dapat menghitung seberapa besar kontribusi setiap fitur terhadap prediksi akhir.
+Analisis Feature Importance: 
+ Dari hasil analisis, fitur paling penting dalam prediksi diabetes adalah Glucose, diikuti oleh BMI, Age, dan DiabetesPedigreeFunction. Fitur-fitur lain seperti Insulin, BloodPressure, SkinThickness, dan Pregnancies memiliki kontribusi yang lebih kecil.
+## Evaluation
+Pada tahap evaluasi, performa model Random Forest diukur menggunakan berbagai metrik yaitu Akurasi, Precision, Recall, dan F1 Score. Selain itu, confusion matrix digunakan untuk melihat detail prediksi benar dan salah pada masing-masing kelas.
+
+**Metrik Evaluasi **
+
+![image](https://github.com/user-attachments/assets/70337602-435b-491e-b982-fa717e8566d5)
+## Analisis Confusion Matrix
+Confusion matrix memberikan informasi tentang prediksi benar (True Positives dan True Negatives) serta prediksi salah (False Positives dan False Negatives). Berikut adalah confusion matrix dari masing-masing model:
+
+![image](https://github.com/user-attachments/assets/8a39150a-5d0e-4fbc-ab63-51b0f15dec92)
+    
+    •	True Negatives (TN): 78
+    •	False Positives (FP): 21
+    •	False Negatives (FN): 19
+    •	True Positives (TP): 36
+Analisis :
+
+    •	Model Random Forest menunjukkan performa baik dalam memprediksi diabetes, dengan akurasi sebesar 74% pada data uji.
+    •	Precision dan recall untuk kelas diabetes (1) berada pada angka 0.63 dan 0.65, menandakan model cukup baik dalam mendeteksi kasus positif meski masih terdapat beberapa kasus yang terlewat (FN).
+    •	Nilai F1 Score yang seimbang antara kedua kelas menunjukkan model cukup stabil.
+Berdasarkan analisis feature importance, fitur Glucose, BMI, dan Age merupakan faktor yang paling berpengaruh terhadap prediksi risiko diabetes.
+## Kesimpulan
+Model Random Forest yang digunakan memiliki keseimbangan performa antara akurasi, precision, recall, dan F1 score. Dengan performa yang stabil serta interpretasi fitur yang jelas, model ini layak dijadikan baseline untuk pengembangan prediksi risiko diabetes pada dataset ini.
